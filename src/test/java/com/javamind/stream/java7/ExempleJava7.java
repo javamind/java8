@@ -10,7 +10,7 @@ import org.junit.Test;
 import java.util.Collection;
 
 /**
- * Un exemple permettant de faire un tri sur une liste de personnes à la mode Java 7
+ * Un exemple permettant de faire un tri sur une liste de personnes ï¿½ la mode Java 7
  *
  * @author EHRET_G
  */
@@ -23,7 +23,7 @@ public class ExempleJava7 {
         persons = Lists.newArrayList(
                 new Person(10, "Luc"),
                 new Person(20, "Sophie"),
-                new Person(25, "Céline"),
+                new Person(25, "Cï¿½line"),
                 new Person(15, "Theo"),
                 new Person(30, "Emilie"),
                 new Person(70, "Paul"),
@@ -73,17 +73,4 @@ public class ExempleJava7 {
 
     }
 
-    @Test
-    public void calculAgeMoyenProgFonctionnelleJava8() {
-
-        Mapper<Person, Integer> mapper = (Person person) -> person.getAge();
-        //ou
-        mapper = Person::getAge;
-
-        Predicate<Integer> filter = i -> i>=20;
-
-        Reducer<Integer> reducer = (r1, r2) -> r1+r2;
-
-
-    }
 }
