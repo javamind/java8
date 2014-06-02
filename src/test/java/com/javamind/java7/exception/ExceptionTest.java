@@ -18,7 +18,7 @@ public class ExceptionTest {
             Person.class.newInstance();
         }
         catch (InstantiationException | IllegalAccessException e) {
-            Assertions.fail("devrait marcher", e);
+
         }
     }
 }

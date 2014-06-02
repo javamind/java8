@@ -10,6 +10,10 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Un exemple permettant de faire un tri sur une liste de personnes � la mode Java 7
@@ -37,7 +41,7 @@ public class ExempleJava8 {
 
 
     @Test
-    public void definitionLambda() {
+    public void calculAgeMoyenProgFonctionnelleJava8() {
 
         Mapper<Person, Integer> mapper = (Person person) -> person.getAge();
         //ou
@@ -47,15 +51,50 @@ public class ExempleJava8 {
 
         Reducer<Integer> reducer = (r1, r2) -> r1+r2;
 
+
     }
 
-
     @Test
-    public void calculAgeMoyenProgFonctionnelleJava8() {
-        persons.stream()
+    public void stream() {
+
+        Optional<Integer> sum =
+                persons
+                        .stream()
                         .map(person -> person.getAge())
                         .filter(age -> age>=20)
-                        .reduce(0, (age1, age2) -> age1 + age2);
+                        .reduce((age1, age2) -> age1+age2);
 
+    }
+
+    @Test
+    public void calulerMoyenneAge() {
+
+        double moyenne = persons.stream()
+                .filter(person -> person.getAge() >= 20)
+                .mapToInt(person -> person.getAge())
+                .average()
+                .getAsDouble();
+
+        System.out.println(moyenne);
+    }
+
+    @Test
+    public void personsCollectors() {
+        //Age moyen des personnes de plus de 20 ans
+        double moyenne = persons.stream()
+                .filter(person -> person.getAge() >= 20)
+                .collect(Collectors.averagingInt(Person::getAge));
+
+        //map repartissant les personnes par age
+        Map<Integer, List<Person>> repartition =  persons.stream()
+                .filter(person -> person.getAge() >= 50)
+                .collect(Collectors.groupingBy(Person::getAge));
+
+        //map repartissant les personnes par age selon leur nom
+        Map<Integer, List<String>> repartition2 =  persons.stream()
+                .filter(person -> person.getAge() >= 20)
+                .collect(Collectors.groupingBy(Person::getAge, Collectors.mapping(person->person.getName(), Collectors.toList())));
+
+        System.out.println(repartition);
     }
 }

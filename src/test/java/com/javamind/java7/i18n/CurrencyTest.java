@@ -25,6 +25,6 @@ public class CurrencyTest {
     @Test
     public void currencyName(){
         Assertions.assertThat(Currency.getInstance(Locale.FRANCE).getDisplayName()).isEqualTo("euro");
-        Assertions.assertThat(Currency.getInstance(Locale.US).getDisplayName()).isEqualTo("dollar");
+        Assertions.assertThat(Currency.getInstance(Locale.US).getDisplayName()).isEqualTo("dollar des États-Unis");
     }
 }

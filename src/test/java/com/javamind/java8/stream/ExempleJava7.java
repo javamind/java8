@@ -1,6 +1,8 @@
 package com.javamind.java8.stream;
 
 
+import com.google.common.base.Function;
+import com.google.common.collect.FluentIterable;
 import com.google.common.collect.Lists;
 import com.javamind.domain.Person;
 import com.javamind.stream.Mapper;
@@ -11,6 +13,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Un exemple permettant de faire un tri sur une liste de personnes � la mode Java 7
@@ -73,6 +76,36 @@ public class ExempleJava7 {
                 return r1+r2;
             }
         };
+
+    }
+
+
+    @Test
+    public void calculAgeMoyenProgFonctionnelleGuava() {
+
+        List<Integer> agesPersons = FluentIterable
+                .from(persons)
+                .filter(new com.google.common.base.Predicate<Person>() {
+                    @Override
+                    public boolean apply(Person person) {
+                        return person.getAge()>=20;
+                    }
+                })
+                .transform(new Function<Person, Integer>() {
+                    @Override
+                    public Integer apply(Person person) {
+                        return person.getAge();
+                    }
+                })
+                .toList();
+        if(!agesPersons.isEmpty()) {
+            double sum = 0;
+            for (Integer age : agesPersons) {
+                sum += age;
+            }
+            double moyenne = sum / agesPersons.size();
+            System.out.println(moyenne);
+        }
 
     }
 
