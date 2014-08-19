@@ -6,7 +6,7 @@ package com.javamind.domain;
 public class Person {
     public int age;
     public String name;
-
+    public String mail;
 
     public Person(int age, String name) {
         this.age = age;
@@ -21,4 +21,22 @@ public class Person {
         return name;
     }
 
+    public Person setAge(int age) {
+        this.age = age;
+        return this;
+    }
+
+    public Person setName(String name) {
+        this.name = name;
+        return this;
+    }
+
+    public String getMail() {
+        return mail;
+    }
+
+    public Person setMail(String mail) {
+        this.mail = mail;
+        return this;
+    }
 }
