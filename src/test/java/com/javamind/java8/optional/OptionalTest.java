@@ -1,5 +1,6 @@
 package com.javamind.java8.optional;
 
+import com.javamind.domain.Person;
 import com.javamind.model.PersonRepository;
 import org.junit.Test;
 
@@ -43,9 +44,31 @@ public class OptionalTest {
         Optional.empty().get();
     }
 
-    @Test(expected = NoSuchElementException.class)
+    @Test
     public void shouldFindNull(){
-        assertThat(Optional.of(null).get()).isNull();
+        assertThat(Optional.ofNullable(null).isPresent()).isEqualTo(false);
         assertThat(Optional.of("toto").get()).isEqualTo("toto");
+
+        assertThat(personRepository.getWinnerByName3("Wendy")
+                .orElse(new Person().setName("anonymous")).getName())
+                .isEqualTo("anonymous");
+
+        assertThat(personRepository.getWinnerByName3("Wendy")
+                .orElseGet(() -> personRepository.getWinnerByName3("Mathilde").get()).getName())
+                .isEqualTo("Mathilde");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void shouldthrowExceptionWhenElementNotFound(){
+        personRepository.getWinnerByName3("Wendy").orElseThrow(IllegalArgumentException::new);
+    }
+
+
+    @Test
+    public void shouldTransformResult(){
+
+        assertThat(Optional.of("toto").map( p -> p.toUpperCase()).get()).isEqualTo("TOTO");
+        assertThat(Optional.of("toto").filter( p -> p.equals("titi"))).isEqualTo(Optional.empty());
+
     }
 }

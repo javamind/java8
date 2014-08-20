@@ -42,8 +42,7 @@ public class AwardService {
      * @return
      */
     public void sendMailToWinner3(String name){
-        Optional<Person> person = personRepository.getWinnerByName2(name);
-        person.ifPresent(p -> sendMail(person.get().getMail(), "You win..."));
+        personRepository.getWinnerByName2(name).ifPresent(p -> sendMail(p.getMail(), "You win..."));
     }
 
 

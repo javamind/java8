@@ -8,6 +8,9 @@ public class Person {
     public String name;
     public String mail;
 
+    public Person() {
+    }
+
     public Person(int age, String name) {
         this.age = age;
         this.name = name;
